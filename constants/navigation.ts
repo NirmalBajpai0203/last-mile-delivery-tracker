@@ -30,6 +30,7 @@ export const sidebarLinks = [
     title: "Agents",
     href: "/agents",
     icon: Truck,
+    badge: "5",
   },
   {
     title: "Rate Cards",
