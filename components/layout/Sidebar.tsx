@@ -109,3 +109,120 @@ export default function Sidebar() {
         </div>
 
       </ScrollArea>
+            {/* ---------- User Section ---------- */}
+
+      <div className="border-t border-slate-800 p-4">
+
+        <div
+          className="
+          rounded-2xl
+          border
+          border-slate-800
+          bg-slate-900/60
+          p-4
+          backdrop-blur-lg
+          "
+        >
+
+          <div className="flex items-center gap-3">
+
+            <div className="relative">
+
+              <div
+                className="
+                flex
+                h-12
+                w-12
+                items-center
+                justify-center
+                rounded-full
+                bg-gradient-to-br
+                from-blue-500
+                to-cyan-400
+                text-lg
+                font-bold
+                text-white
+                "
+              >
+                NB
+              </div>
+
+              <span
+                className="
+                absolute
+                bottom-0
+                right-0
+                h-3
+                w-3
+                rounded-full
+                border-2
+                border-slate-900
+                bg-emerald-500
+                "
+              />
+
+            </div>
+
+            <div className="flex-1">
+
+              <p className="font-semibold text-white">
+
+                Nirmal Bajpai
+
+              </p>
+
+              <p className="text-xs text-slate-400">
+
+                Administrator
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Logout Button */}
+
+        <button
+          className="
+          mt-4
+          flex
+          w-full
+          items-center
+          justify-center
+          rounded-xl
+          border
+          border-red-500/20
+          bg-red-500/10
+          py-3
+          font-medium
+          text-red-400
+          transition-all
+          duration-300
+          hover:bg-red-500
+          hover:text-white
+          "
+        >
+
+          Logout
+
+        </button>
+
+
+
+    
+        {/* ---------- Footer ---------- */}
+
+    <div className="border-t border-slate-800 px-6 py-4">
+      <p className="text-center text-xs text-slate-500">
+        LastMile Tracker v1.0
+      </p>
+    </div>
+
+    </div>
+
+  </aside>
+  );
+}

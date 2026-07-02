@@ -1,65 +1,128 @@
-import Image from "next/image";
+import React from "react";
+import DashboardLayout from "@/components/layout/DashboardLayout";
+import {
+  Package,
+  Truck,
+  CheckCircle,
+  IndianRupee,
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <DashboardLayout>
+      <div className="space-y-8">
+
+        {/* Heading */}
+
+        <div>
+          <h2 className="text-3xl font-bold text-white">
+            Last Mile Delivery Dashboard
+          </h2>
+
+          <p className="mt-2 text-slate-400">
+            Monitor deliveries, drivers and business performance in real time.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Stats */}
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+
+          <StatCard
+            title="Today's Orders"
+            value="156"
+            icon={<Package className="h-7 w-7" />}
+            color="from-blue-500 to-cyan-500"
+          />
+
+          <StatCard
+            title="Active Deliveries"
+            value="48"
+            icon={<Truck className="h-7 w-7" />}
+            color="from-orange-500 to-red-500"
+          />
+
+          <StatCard
+            title="Completed"
+            value="108"
+            icon={<CheckCircle className="h-7 w-7" />}
+            color="from-green-500 to-emerald-500"
+          />
+
+          <StatCard
+            title="Revenue"
+            value="₹24,500"
+            icon={<IndianRupee className="h-7 w-7" />}
+            color="from-purple-500 to-pink-500"
+          />
+
         </div>
-      </main>
+
+        {/* Chart Placeholder */}
+
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
+
+          <div className="mb-6 flex items-center justify-between">
+
+            <h3 className="text-xl font-semibold text-white">
+              Revenue Analytics
+            </h3>
+
+            <span className="rounded-full bg-blue-600 px-3 py-1 text-sm">
+              Live
+            </span>
+
+          </div>
+
+          <div className="flex h-72 items-center justify-center rounded-xl border border-dashed border-slate-700 text-slate-500">
+            Revenue Chart (Coming Next)
+          </div>
+
+        </div>
+
+      </div>
+    </DashboardLayout>
+  );
+}
+
+interface StatCardProps {
+  title: string;
+  value: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+function StatCard({
+  title,
+  value,
+  icon,
+  color,
+}: StatCardProps) {
+  return (
+    <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:scale-[1.02]">
+
+      <div className="flex items-center justify-between">
+
+        <div>
+
+          <p className="text-slate-400">
+            {title}
+          </p>
+
+          <h3 className="mt-2 text-3xl font-bold text-white">
+            {value}
+          </h3>
+
+        </div>
+
+        <div
+          className={`rounded-2xl bg-gradient-to-br ${color} p-4 text-white`}
+        >
+          {icon}
+        </div>
+
+      </div>
+
     </div>
   );
 }
