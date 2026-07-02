@@ -1,3 +1,5 @@
+import TrackingMap from "@/components/dashboard/TrackingMap";
+import LiveTracking from "@/components/dashboard/LiveTracking";
 import RevenueChart from "@/components/dashboard/RevenueChart";
 import RecentOrders from "@/components/dashboard/RecentOrders";
 import StatCard from "@/components/dashboard/StatCard";
@@ -70,37 +72,12 @@ export default function Home() {
 {/* Bottom Section */}
 
 <div className="grid gap-6 xl:grid-cols-2">
-
   <RecentOrders />
+  <LiveTracking />
+</div>
 
-  <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-
-    <h2 className="mb-6 text-xl font-semibold text-white">
-      Delivery Status
-    </h2>
-
-    <div className="space-y-4">
-
-      <div className="rounded-xl bg-slate-800 p-4">
-        🚚 Driver Rahul is delivering Order #1025
-      </div>
-
-      <div className="rounded-xl bg-slate-800 p-4">
-        📦 48 Orders currently in transit
-      </div>
-
-      <div className="rounded-xl bg-slate-800 p-4">
-        ✅ 108 Orders delivered today
-      </div>
-
-      <div className="rounded-xl bg-slate-800 p-4">
-        ⏳ Average delivery time : 24 mins
-      </div>
-
-    </div>
-
-  </div>
-
+<div className="mt-6">
+  <TrackingMap />
 </div>
 </div>
 
