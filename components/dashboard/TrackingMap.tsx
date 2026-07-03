@@ -1,17 +1,34 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+
+import type { LatLngExpression } from "leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+} from "react-leaflet";
+
+const center: LatLngExpression = [28.6139, 77.209];
 
 const positions = [
-  { name: "Rahul", lat: 28.6139, lng: 77.2090 },
-  { name: "Amit", lat: 28.6219, lng: 77.2300 },
-  { name: "Rohit", lat: 28.6319, lng: 77.2180 },
+  {
+    name: "Rahul",
+    position: [28.6139, 77.209] as LatLngExpression,
+  },
+  {
+    name: "Amit",
+    position: [28.6219, 77.23] as LatLngExpression,
+  },
+  {
+    name: "Rohit",
+    position: [28.6319, 77.218] as LatLngExpression,
+  },
 ];
 
 export default function TrackingMap() {
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-semibold text-white">
           Live Tracking Map
@@ -23,25 +40,27 @@ export default function TrackingMap() {
       </div>
 
       <div className="h-[400px] overflow-hidden rounded-xl">
-
         <MapContainer
-          center={[28.6139, 77.2090]}
+          center={center}
           zoom={12}
           className="h-full w-full"
         >
-
           <TileLayer
+            attribution="&copy; OpenStreetMap contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {positions.map((p) => (
-            <Marker key={p.name} position={[p.lat, p.lng]}>
-              <Popup>{p.name} is here 🚚</Popup>
+          {positions.map((driver) => (
+            <Marker
+              key={driver.name}
+              position={driver.position}
+            >
+              <Popup>
+                {driver.name} is here 🚚
+              </Popup>
             </Marker>
           ))}
-
         </MapContainer>
-
       </div>
     </div>
   );

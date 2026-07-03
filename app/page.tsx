@@ -1,15 +1,10 @@
-import TrackingMap from "@/components/dashboard/TrackingMap";
+import DashboardStats from "@/components/dashboard/DashboardStats";
 import LiveTracking from "@/components/dashboard/LiveTracking";
 import RevenueChart from "@/components/dashboard/RevenueChart";
 import RecentOrders from "@/components/dashboard/RecentOrders";
-import StatCard from "@/components/dashboard/StatCard";
+
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import {
-  Package,
-  Truck,
-  CheckCircle,
-  IndianRupee,
-} from "lucide-react";
+
 
 export default function Home() {
   return (
@@ -30,41 +25,7 @@ export default function Home() {
 
         {/* Stats */}
 
-       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-
-  <StatCard
-    title="Today's Orders"
-    value="156"
-    change="+12%"
-    icon={<Package size={28} />}
-    gradient="from-blue-500 to-cyan-500"
-  />
-
-  <StatCard
-    title="Active Deliveries"
-    value="48"
-    change="+8%"
-    icon={<Truck size={28} />}
-    gradient="from-orange-500 to-red-500"
-  />
-
-  <StatCard
-    title="Completed"
-    value="108"
-    change="+18%"
-    icon={<CheckCircle size={28} />}
-    gradient="from-green-500 to-emerald-500"
-  />
-
-  <StatCard
-    title="Revenue"
-    value="₹24,500"
-    change="+22%"
-    icon={<IndianRupee size={28} />}
-    gradient="from-purple-500 to-pink-500"
-  />
-
-</div>
+      <DashboardStats />
 {/* Revenue Chart */}
 
 <RevenueChart />
@@ -77,7 +38,7 @@ export default function Home() {
 </div>
 
 <div className="mt-6">
-  <TrackingMap />
+  
 </div>
 </div>
 
