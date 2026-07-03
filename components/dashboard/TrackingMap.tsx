@@ -1,29 +1,29 @@
 "use client";
 
+import "leaflet/dist/leaflet.css";
 
-import type { LatLngExpression } from "leaflet";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import L from "leaflet";
 
-const center: LatLngExpression = [28.6139, 77.209];
+import "leaflet/dist/images/marker-icon.png";
+import "leaflet/dist/images/marker-shadow.png";
+
+const iconDefault = L.Icon.Default.prototype as unknown as {
+  _getIconUrl?: unknown;
+};
+
+delete iconDefault._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "/marker-icon-2x.png",
+  iconUrl: "/marker-icon.png",
+  shadowUrl: "/marker-shadow.png",
+});
 
 const positions = [
-  {
-    name: "Rahul",
-    position: [28.6139, 77.209] as LatLngExpression,
-  },
-  {
-    name: "Amit",
-    position: [28.6219, 77.23] as LatLngExpression,
-  },
-  {
-    name: "Rohit",
-    position: [28.6319, 77.218] as LatLngExpression,
-  },
+  { name: "Rahul", position: [28.6139, 77.2090] as [number, number] },
+  { name: "Amit", position: [28.6219, 77.2300] as [number, number] },
+  { name: "Rohit", position: [28.6319, 77.2180] as [number, number] },
 ];
 
 export default function TrackingMap() {
@@ -41,7 +41,7 @@ export default function TrackingMap() {
 
       <div className="h-[400px] overflow-hidden rounded-xl">
         <MapContainer
-          center={center}
+          center={[28.6139, 77.209]}
           zoom={12}
           className="h-full w-full"
         >
@@ -51,13 +51,8 @@ export default function TrackingMap() {
           />
 
           {positions.map((driver) => (
-            <Marker
-              key={driver.name}
-              position={driver.position}
-            >
-              <Popup>
-                {driver.name} is here 🚚
-              </Popup>
+            <Marker key={driver.name} position={driver.position}>
+              <Popup>{driver.name} 🚚</Popup>
             </Marker>
           ))}
         </MapContainer>

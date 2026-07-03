@@ -23,6 +23,7 @@ const cached: MongooseCache = global.mongooseCache ?? {
 global.mongooseCache = cached;
 
 export async function connectDB() {
+    console.log("Mongo URI:", MONGODB_URI);
   if (cached.conn) {
     return cached.conn;
   }
