@@ -1,4 +1,5 @@
 import DashboardStats from "@/components/dashboard/DashboardStats";
+import TrackingMap from "@/components/dashboard/TrackingMap";
 import LiveTracking from "@/components/dashboard/LiveTracking";
 import RevenueChart from "@/components/dashboard/RevenueChart";
 import RecentOrders from "@/components/dashboard/RecentOrders";
@@ -38,7 +39,7 @@ export default function Home() {
 </div>
 
 <div className="mt-6">
-  
+  <TrackingMap />
 </div>
 </div>
 
