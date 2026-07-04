@@ -1,6 +1,6 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
-const OrderSchema = new Schema(
+const DeliverySchema = new Schema(
   {
     orderId: {
       type: String,
@@ -29,9 +29,8 @@ const OrderSchema = new Schema(
     },
 
     driver: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "Driver",
-      required: true,
     },
   },
   {
@@ -39,4 +38,5 @@ const OrderSchema = new Schema(
   }
 );
 
-export default models.Order || model("Order", OrderSchema);
+export default models.Delivery ||
+  model("Delivery", DeliverySchema);

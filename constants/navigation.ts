@@ -1,55 +1,38 @@
 import {
   LayoutDashboard,
   Package,
-  Users,
   Truck,
-  IndianRupee,
-  Map,
-  BarChart3,
-  Settings,
+  PlusCircle,
 } from "lucide-react";
 
-export const sidebarLinks = [
+import type { LucideIcon } from "lucide-react";
+
+export interface SidebarLink {
+  title: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: string;
+}
+
+export const sidebarLinks: SidebarLink[] = [
   {
     title: "Dashboard",
-    href: "/admin",
+    href: "/",
     icon: LayoutDashboard,
   },
   {
-    title: "Orders",
-    href: "/orders",
-    icon: Package,
-    badge: "24",
-  },
-  {
-    title: "Customers",
-    href: "/customers",
-    icon: Users,
-  },
-  {
-    title: "Agents",
-    href: "/agents",
+    title: "Drivers",
+    href: "/drivers/add",
     icon: Truck,
-    badge: "5",
   },
   {
-    title: "Rate Cards",
-    href: "/rate-cards",
-    icon: IndianRupee,
+    title: "Orders",
+    href: "/orders/add",
+    icon: Package,
   },
   {
-    title: "Zones",
-    href: "/zones",
-    icon: Map,
-  },
-  {
-    title: "Reports",
-    href: "/reports",
-    icon: BarChart3,
-  },
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: Settings,
+    title: "Create Order",
+    href: "/orders/add",
+    icon: PlusCircle,
   },
 ];

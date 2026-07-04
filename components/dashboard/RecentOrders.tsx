@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import {
   Table,
   TableBody,
@@ -9,39 +13,36 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 
-const orders = [
-  {
-    id: "#ORD1025",
-    customer: "Rahul Sharma",
-    status: "Delivered",
-    amount: "₹540",
-  },
-  {
-    id: "#ORD1026",
-    customer: "Anjali Singh",
-    status: "In Transit",
-    amount: "₹890",
-  },
-  {
-    id: "#ORD1027",
-    customer: "Aman Verma",
-    status: "Pending",
-    amount: "₹350",
-  },
-  {
-    id: "#ORD1028",
-    customer: "Priya Kapoor",
-    status: "Delivered",
-    amount: "₹1240",
-  },
-];
+interface Order {
+  _id: string;
+  orderId: string;
+  customerName: string;
+  status: string;
+}
 
 export default function RecentOrders() {
+  const [orders, setOrders] = useState<Order[]>([]);
+
+  useEffect(() => {
+    async function fetchOrders() {
+      try {
+        const res = await fetch("/api/dashboard/orders");
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+        setOrders(data);
+      } catch (error) {
+        console.error("Failed to fetch orders:", error);
+      }
+    }
+
+    fetchOrders();
+  }, []);
+
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-
       <div className="mb-6 flex items-center justify-between">
-
         <h2 className="text-xl font-semibold text-white">
           Recent Orders
         </h2>
@@ -49,39 +50,26 @@ export default function RecentOrders() {
         <Badge className="bg-blue-600">
           Live
         </Badge>
-
       </div>
 
       <Table>
-
         <TableHeader>
-
           <TableRow>
-
             <TableHead>Order ID</TableHead>
-
             <TableHead>Customer</TableHead>
-
             <TableHead>Status</TableHead>
-
             <TableHead>Amount</TableHead>
-
           </TableRow>
-
         </TableHeader>
 
         <TableBody>
-
           {orders.map((order) => (
+            <TableRow key={order._id}>
+              <TableCell>{order.orderId}</TableCell>
 
-            <TableRow key={order.id}>
-
-              <TableCell>{order.id}</TableCell>
-
-              <TableCell>{order.customer}</TableCell>
+              <TableCell>{order.customerName}</TableCell>
 
               <TableCell>
-
                 <Badge
                   className={
                     order.status === "Delivered"
@@ -93,19 +81,13 @@ export default function RecentOrders() {
                 >
                   {order.status}
                 </Badge>
-
               </TableCell>
 
-              <TableCell>{order.amount}</TableCell>
-
+              <TableCell>--</TableCell>
             </TableRow>
-
           ))}
-
         </TableBody>
-
       </Table>
-
     </div>
   );
 }

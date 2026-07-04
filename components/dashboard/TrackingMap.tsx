@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
@@ -20,13 +21,47 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "/marker-shadow.png",
 });
 
-const positions = [
-  { name: "Rahul", position: [28.6139, 77.2090] as [number, number] },
-  { name: "Amit", position: [28.6219, 77.2300] as [number, number] },
-  { name: "Rohit", position: [28.6319, 77.2180] as [number, number] },
-];
+interface Driver {
+  _id: string;
+  name: string;
+  latitude: number;
+  longitude: number;
+  status?: string;
+  vehicle?: string;
+}
 
 export default function TrackingMap() {
+  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchDrivers = async () => {
+      try {
+        const res = await fetch("/api/dashboard/drivers", {
+          cache: "no-store",
+        });
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch drivers");
+        }
+
+        const data: Driver[] = await res.json();
+        setDrivers(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDrivers();
+
+    // Auto refresh every 10 seconds
+    const interval = setInterval(fetchDrivers, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
       <div className="mb-4 flex items-center justify-between">
@@ -40,22 +75,41 @@ export default function TrackingMap() {
       </div>
 
       <div className="h-[400px] overflow-hidden rounded-xl">
-        <MapContainer
-          center={[28.6139, 77.209]}
-          zoom={12}
-          className="h-full w-full"
-        >
-          <TileLayer
-            attribution="&copy; OpenStreetMap contributors"
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
+        {loading ? (
+          <div className="flex h-full items-center justify-center text-slate-400">
+            Loading Map...
+          </div>
+        ) : (
+          <MapContainer
+            center={[28.6139, 77.209]}
+            zoom={12}
+            className="h-full w-full"
+          >
+            <TileLayer
+              attribution="&copy; OpenStreetMap contributors"
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
 
-          {positions.map((driver) => (
-            <Marker key={driver.name} position={driver.position}>
-              <Popup>{driver.name} 🚚</Popup>
-            </Marker>
-          ))}
-        </MapContainer>
+            {drivers.map((driver) => (
+              <Marker
+                key={driver._id}
+                position={[driver.latitude, driver.longitude]}
+              >
+                <Popup>
+                  <div className="space-y-1">
+                    <p>
+                      <strong>{driver.name}</strong>
+                    </p>
+
+                    <p>🚚 {driver.vehicle ?? "Vehicle N/A"}</p>
+
+                    <p>📍 {driver.status ?? "Available"}</p>
+                  </div>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        )}
       </div>
     </div>
   );
